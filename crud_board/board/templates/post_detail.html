@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>{{ object.title }}</title>
+  </head>
+  <body>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <h1>{{ object.title }}</h1>
+    <div class="nav">
+      <ul>
+        {% if object.get_previous_by_created_at %}
+        <li>
+          <b>이전글</b> :
+          <a href="{% url 'post-detail' object.get_previous_by_created_at.pk %}">
+            {{ object.get_previous_by_created_at.title }}
+          </a>
+        </li>
+        {% endif %}
+        {% if object.get_next_by_created_at %}
+        <li>
+          <b>다음글</b> :
+          <a href="{% url 'post-detail' object.get_next_by_created_at.pk %}">
+            {{ object.get_next_by_created_at.title }}
+          </a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+    <div class="header">
+      <b>작성자</b> : {{ object.author }}<br>
+      <b>작성 시각</b> : {{ object.created_at|date:"D d M Y, H:i:s" }}<br>
+      {% if object.created_at != object.modified_at %}
+      <b>수정 시각</b> : {{ object.modified_at|date:"D d M Y, H:i:s" }}<br>
+      {% endif %}
+    </div>
+    <div class="content">
+      {{ object.content|linebreaks }}
+    </div>
+    <div class="footer">
+      <a href="{% url 'index' %}">Main</a>
+      <a href="{% url 'post-update' object.pk %}">Edit</a>
+      <a href="{% url 'post-delete' object.pk %}">Delete</a>
+    </div>
+  </body>
+</html>

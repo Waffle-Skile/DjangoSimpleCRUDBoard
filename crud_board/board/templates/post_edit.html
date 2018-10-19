@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>수정 - {{ object.title }}</title>
+  </head>
+  <body>
+    <form class="form" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <p>Password: <input type="password" name="pw" value=""></p>
+      <input type="submit" name="submit" value="수정">
+    </form>
+  </body>
+</html>

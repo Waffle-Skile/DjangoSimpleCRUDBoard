@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>My Blog</title>
+  </head>
+  <body>
+    <div class="posts">
+      <h2>Posts</h2>
+      <p>총 {{ post_num }}개의 포스트가 있습니다.</p>
+      <h4>Recent Posts</h4>
+      <ul>
+      {% if recent_posts %}
+        {% for post in recent_posts %}
+        <li><a href="{% url 'post-detail' post.pk %}">{{ post.title }}</a></li>
+        {% endfor %}
+      {% else %}
+        <li>최근 포스트가 없습니다.</li>
+      {% endif %}
+      </ul>
+      <p><a href="{% url 'post-create' %}">Write</a></p>
+    </div>
+  </body>
+</html>
